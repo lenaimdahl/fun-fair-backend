@@ -10,7 +10,7 @@ router.post("/signup", async (req, res) => {
   const salt = bcrypt.genSaltSync(saltRounds);
   const hash = bcrypt.hashSync(req.body.password, salt);
   const newUser = await User.create({
-    username: req.body.username,
+    email: req.body.email,
     password: hash,
   });
   res.status(201).json(newUser);
@@ -18,15 +18,15 @@ router.post("/signup", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const foundUser = await User.findOne({ username: req.body.username });
+    const foundUser = await User.findOne({ email: req.body.email });
     if (foundUser) {
       const passwordMatch = bcrypt.compareSync(
         req.body.password,
         foundUser.password
       );
       if (passwordMatch) {
-        const { _id, username } = foundUser;
-        const payload = { _id, username };
+        const { _id, email, username } = foundUser;
+        const payload = { _id, email, username };
         const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
           algorithm: "HS256",
           expiresIn: "6h",
@@ -34,7 +34,7 @@ router.post("/login", async (req, res) => {
         res.status(200).json({ authToken });
       }
     } else {
-      res.status(400).json({ message: "username or password do not match" });
+      res.status(400).json({ message: "email or password do not match" });
     }
   } catch (err) {
     console.log(err);
