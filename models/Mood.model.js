@@ -5,7 +5,7 @@ const moodSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  type: {
+  title: {
     type: String,
     enum: ["happy", "sad", "angry", "in love", "sleepy"],
     required: true,
