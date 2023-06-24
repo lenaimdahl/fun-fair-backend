@@ -44,7 +44,6 @@ router.post("/login", async (req, res) => {
 
 router.get("/verify", isAuthenticated, (req, res) => {
   console.log("here is our payload", req.payload);
-  const { _id } = req.payload;
   if (req.payload) {
     res.status(200).json({ user: req.payload });
   }
