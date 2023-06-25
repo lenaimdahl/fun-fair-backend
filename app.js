@@ -8,7 +8,7 @@ require("./config")(app);
 
 const { isAuthenticated } = require("./middlewares/jwt.auth");
 
-const privateRoutes = require("./routes/private.routes");
+const privateRoutes = require("./routes/api.routes");
 app.use("/api", isAuthenticated, privateRoutes);
 
 const authRoutes = require("./routes/auth.routes");
