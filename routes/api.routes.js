@@ -2,6 +2,7 @@ const router = require("express").Router();
 const MoodModel = require("../models/Mood.model");
 // const EventModel = require("../models/Event.model");
 const ActivityModel = require("../models/Activity.model");
+const EventModel = require("../models/Event.model");
 
 router.post("/mood", async (req, res) => {
   try {
@@ -41,6 +42,24 @@ router.post("/activity", async (req, res) => {
     res.status(200).json({ savedActivity });
   } catch (err) {
     console.error("ERROR while getting selected user data :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.post("/event", async (req, res) => {
+  try {
+    const userId = req.payload._id;
+    const { title, image, points, timestamp } = req.body;
+    const savedEvent = await EventModel.create({
+      user: userId,
+      title,
+      image,
+      points,
+      timestamp,
+    });
+    res.status(200).json({ savedEvent });
+  } catch (err) {
+    console.error("ERROR while adding an event :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
