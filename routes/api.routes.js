@@ -64,4 +64,14 @@ router.post("/event", async (req, res) => {
   }
 });
 
+router.get("/all-events", async (req, res) => {
+  try {
+    const allEvents = await EventModel.find();
+    res.status(200).json({ allEvents });
+  } catch (err) {
+    console.error("ERROR while fetching all events from db :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
