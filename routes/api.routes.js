@@ -46,6 +46,17 @@ router.post("/activity", async (req, res) => {
   }
 });
 
+router.get("/events", async (req, res) => {
+  try {
+    const userId = req.payload._id;
+    const events = await EventModel.find({ user: userId });
+    res.status(200).json({ events });
+  } catch (err) {
+    console.error("ERROR while getting selected user data :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 router.post("/event", async (req, res) => {
   try {
     const userId = req.payload._id;
