@@ -46,7 +46,7 @@ router.post("/activity", async (req, res) => {
   }
 });
 
-router.get("/event", async (req, res) => {
+router.get("/events", async (req, res) => {
   try {
     const userId = req.payload._id;
     const events = await EventModel.find({ user: userId });
