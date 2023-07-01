@@ -20,6 +20,8 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required."],
     },
+    // ref: Reference to collection in db
+    eventsInCalendar: [{ type: Schema.Types.ObjectId, ref: "events" }], 
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
