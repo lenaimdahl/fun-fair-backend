@@ -4,6 +4,7 @@ const MoodModel = require("../models/Mood.model");
 const ActivityModel = require("../models/Activity.model");
 const EventModel = require("../models/Event.model");
 const UserModel = require("../models/User.model");
+const TextModel = require("../models/Text.model");
 
 router.post("/mood", async (req, res) => {
   try {
@@ -102,6 +103,22 @@ router.get("/events", async (req, res) => {
     res.status(200).json({ allEvents });
   } catch (err) {
     console.error("ERROR while fetching all events from db :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.post("/text", async (req, res) => {
+  try {
+    const userId = req.payload._id;
+    const { text, timestamp } = req.body;
+    const savedText = await TextModel.create({
+      user: userId,
+      text,
+      timestamp,
+    });
+    res.status(200).json({ savedText });
+  } catch (err) {
+    console.error("ERROR while adding a text :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
