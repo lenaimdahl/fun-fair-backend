@@ -20,12 +20,8 @@ router.post("/user", async (req, res) => {
   try {
     const userId = req.payload._id;
     const { user } = req.body;
-    const friendAddedToUser = await UserModel.create({
-      user: userId,
-      user,
-    });
     const pushFriendToUser = await UserModel.findByIdAndUpdate(userId, {
-      $push: { user: friendAddedToUser._id },
+      $push: { friends: user._id },
     });
     res.status(200).json({ pushFriendToUser });
   } catch (err) {
