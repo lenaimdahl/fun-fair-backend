@@ -27,7 +27,7 @@ router.post("/user", async (req, res) => {
     const pushFriendToUser = await UserModel.findByIdAndUpdate(userId, {
       $push: { user: friendAddedToUser._id },
     });
-    res.status(200).json({ pushUserToUser });
+    res.status(200).json({ pushFriendToUser });
   } catch (err) {
     console.error("ERROR while adding an friend :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
