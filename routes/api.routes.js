@@ -84,7 +84,7 @@ router.post("/event", async (req, res) => {
 
 router.post("/new-event", async (req, res) => {
   try {
-    const { title, image, points, } = req.body;
+    const { title, image, points } = req.body;
     const savedEvent = await EventModel.create({
       title,
       image,
@@ -98,6 +98,16 @@ router.post("/new-event", async (req, res) => {
 });
 
 router.get("/events", async (req, res) => {
+  try {
+    const allEvents = await EventModel.find();
+    res.status(200).json({ allEvents });
+  } catch (err) {
+    console.error("ERROR while fetching all events from db :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.get("/search", async (req, res) => {
   try {
     const allEvents = await EventModel.find();
     res.status(200).json({ allEvents });
