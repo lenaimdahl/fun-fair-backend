@@ -107,10 +107,11 @@ router.get("/events", async (req, res) => {
   }
 });
 
-router.get("/search", async (req, res) => {
+router.post("/search", async (req, res) => {
   try {
     const allEvents = await EventModel.find();
-    res.status(200).json({ allEvents });
+    const allText = await TextModel.find();
+    res.status(200).json({ allEvents, allText });
   } catch (err) {
     console.error("ERROR while fetching all events from db :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
