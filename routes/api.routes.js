@@ -16,6 +16,24 @@ router.get("/user", async (req, res) => {
   }
 });
 
+router.post("/user", async (req, res) => {
+  try {
+    const userId = req.payload._id;
+    const { user } = req.body;
+    const friendAddedToUser = await UserModel.create({
+      user: userId,
+      user,
+    });
+    const pushFriendToUser = await UserModel.findByIdAndUpdate(userId, {
+      $push: { user: friendAddedToUser._id },
+    });
+    res.status(200).json({ pushUserToUser });
+  } catch (err) {
+    console.error("ERROR while adding an friend :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 router.post("/mood", async (req, res) => {
   try {
     console.log(req.body);
