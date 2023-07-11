@@ -21,7 +21,8 @@ const userSchema = new Schema(
       required: [true, "Password is required."],
     },
     // ref: Reference to collection in db
-    eventsInCalendar: [{ type: Schema.Types.ObjectId, ref: "events" }], 
+    eventsInCalendar: [{ type: Schema.Types.ObjectId, ref: "events" }],
+    friends: [{ type: Schema.Types.ObjectId, ref: "user" }],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
