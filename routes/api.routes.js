@@ -20,6 +20,23 @@ router.get("/nonfriends", async (req, res) => {
   }
 });
 
+router.get("/friends", async (req, res) => {
+  try {
+    const ownUserId = req.payload._id;
+    const { friends: myFriends } = await UserModel.findById(ownUserId);
+    // Fetches usernames of all friends
+    const friendsData = await UserModel.find(
+      { _id: { $in: myFriends } },
+      "username"
+    );
+
+    res.status(200).json({ friends: friendsData });
+  } catch (err) {
+    console.error("ERROR while fetching all user from db :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 router.post("/addFriend", async (req, res) => {
   try {
     const ownUserId = req.payload._id;
