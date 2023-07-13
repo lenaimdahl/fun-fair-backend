@@ -6,22 +6,22 @@ const EventModel = require("../models/Event.model");
 const UserModel = require("../models/User.model");
 const TextModel = require("../models/Text.model");
 
-router.get("/user", async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
-    const allUser = await UserModel.find();
-    res.status(200).json({ allUser });
+    const allUsers = await UserModel.find();
+    res.status(200).json({ allUsers });
   } catch (err) {
     console.error("ERROR while fetching all user from db :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
-router.post("/user", async (req, res) => {
+router.post("/addFriend", async (req, res) => {
   try {
-    const userId = req.payload._id;
-    const { user } = req.body;
-    const pushFriendToUser = await UserModel.findByIdAndUpdate(userId, {
-      $push: { friends: user._id },
+    const ownUserId = req.payload._id;
+    const { userId } = req.body;
+    const pushFriendToUser = await UserModel.findByIdAndUpdate(ownUserId, {
+      $push: { friends: userId },
     });
     res.status(200).json({ pushFriendToUser });
   } catch (err) {
