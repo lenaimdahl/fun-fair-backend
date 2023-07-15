@@ -183,8 +183,31 @@ router.post("/text", async (req, res) => {
 router.delete("/text/:entryId", async (req, res) => {
   try {
     const userId = req.payload._id;
-    const { textId } = req.params;
-    await TextModel.findByIdAndDelete(textId);
+    const { entryId } = req.params;
+    const entry = await TextModel.findById(entryId);
+    if (userId !== entry.user.toString()) {
+      res.sendStatus(401);
+      return;
+    }
+    await entry.deleteOne();
+    res.sendStatus(200);
+  } catch (err) {
+    console.error("ERROR while adding a text :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.patch("/text/:entryId", async (req, res) => {
+  try {
+    const userId = req.payload._id;
+    const { entryId } = req.params;
+    const { text } = req.body;
+    const entry = await TextModel.findById(entryId);
+    if (userId !== entry.user.toString()) {
+      res.sendStatus(401);
+      return;
+    }
+    await entry.updateOne({ text });
     res.sendStatus(200);
   } catch (err) {
     console.error("ERROR while adding a text :>>", err);
