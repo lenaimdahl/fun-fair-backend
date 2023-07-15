@@ -180,4 +180,16 @@ router.post("/text", async (req, res) => {
   }
 });
 
+router.delete("/text/:entryId", async (req, res) => {
+  try {
+    const userId = req.payload._id;
+    const { textId } = req.params;
+    await TextModel.findByIdAndDelete(textId);
+    res.sendStatus(200);
+  } catch (err) {
+    console.error("ERROR while adding a text :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
