@@ -20,6 +20,9 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required."],
     },
+    weeklyGoal: {
+      type: Number,
+    },
     // ref: Reference to collection in db
     eventsInCalendar: [{ type: Schema.Types.ObjectId, ref: "events" }],
     friends: [{ type: Schema.Types.ObjectId, ref: "user" }],
