@@ -21,7 +21,7 @@ const userSchema = new Schema(
       required: [true, "Password is required."],
     },
     weeklyGoal: {
-      type: Number,
+      type: String,
     },
     // ref: Reference to collection in db
     eventsInCalendar: [{ type: Schema.Types.ObjectId, ref: "events" }],

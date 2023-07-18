@@ -13,6 +13,7 @@ router.post("/signup", async (req, res) => {
     email: req.body.email,
     username: req.body.username,
     password: hash,
+    weeklyGoal: req.body.weeklyGoal,
   });
   res.status(201).json(newUser);
 });

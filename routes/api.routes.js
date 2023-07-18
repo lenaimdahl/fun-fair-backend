@@ -5,6 +5,17 @@ const EventModel = require("../models/Event.model");
 const UserModel = require("../models/User.model");
 const TextModel = require("../models/Text.model");
 
+router.get("/user", async (req, res) => {
+  try {
+    const userId = req.payload._id;
+    const user = await UserModel.findById(userId);
+    res.status(200).json({ user });
+  } catch (err) {
+    console.error("ERROR while fetching all user from db :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 router.get("/nonfriends", async (req, res) => {
   try {
     const ownUserId = req.payload._id;
