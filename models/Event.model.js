@@ -1,10 +1,6 @@
 const { Schema, model } = require("mongoose");
 
 const eventSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
   title: {
     type: String,
     required: true,
@@ -12,14 +8,6 @@ const eventSchema = new Schema({
   image: {
     type: String,
     required: true,
-  },
-  points: {
-    type: Number,
-    required: true,
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now,
   },
 });
 

@@ -2,6 +2,7 @@ const router = require("express").Router();
 const MoodModel = require("../models/Mood.model");
 const ActivityModel = require("../models/Activity.model");
 const EventModel = require("../models/Event.model");
+const MeetingModel = require("../models/Meeting.model");
 const UserModel = require("../models/User.model");
 const TextModel = require("../models/Text.model");
 
@@ -138,11 +139,12 @@ router.get("/events-calendar", async (req, res) => {
 router.post("/event", async (req, res) => {
   try {
     const userId = req.payload._id;
-    const { title, image, points, timestamp } = req.body;
-    const eventAddedToCal = await EventModel.create({
+    const { title, image, points, timestamp, friend } = req.body;
+    const eventAddedToCal = await MeetingModel.create({
       user: userId,
       title,
       image,
+      friend,
       points,
       timestamp,
     });
