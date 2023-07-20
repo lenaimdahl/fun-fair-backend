@@ -125,13 +125,13 @@ router.post("/activity", async (req, res) => {
   }
 });
 
-router.get("/events-calendar", async (req, res) => {
+router.get("/meetings-calendar", async (req, res) => {
   try {
     const userId = req.payload._id;
-    const events = await EventModel.find({ user: userId });
-    res.status(200).json({ events });
+    const meetings = await MeetingModel.find({ user: userId });
+    res.status(200).json({ meetings });
   } catch (err) {
-    console.error("ERROR fetching events from DB to calendar", err);
+    console.error("ERROR fetching meetings from DB to calendar", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -140,7 +140,7 @@ router.post("/event", async (req, res) => {
   try {
     const userId = req.payload._id;
     const { title, image, points, timestamp, friend } = req.body;
-    const eventAddedToCal = await MeetingModel.create({
+    const meetingsAddedToCal = await MeetingModel.create({
       user: userId,
       title,
       image,
@@ -149,13 +149,13 @@ router.post("/event", async (req, res) => {
       timestamp,
     });
 
-    const pushEventToUser = await UserModel.findByIdAndUpdate(userId, {
-      $push: { eventsInCalendar: eventAddedToCal._id },
+    const pushMeetingToUser = await UserModel.findByIdAndUpdate(userId, {
+      $push: { meetings: meetingsAddedToCal._id },
     });
 
-    res.status(200).json({ pushEventToUser });
+    res.status(200).json({ pushMeetingToUser });
   } catch (err) {
-    console.error("ERROR while adding an event :>>", err);
+    console.error("ERROR while adding an meeting :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });

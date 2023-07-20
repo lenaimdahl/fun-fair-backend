@@ -23,7 +23,7 @@ const userSchema = new Schema(
       type: String,
     },
     // ref: Reference to collection in db
-    meeting: [{ type: Schema.Types.ObjectId, ref: "meeting" }],
+    meetings: [{ type: Schema.Types.ObjectId, ref: "meeting" }],
     friends: [{ type: Schema.Types.ObjectId, ref: "user" }],
   },
   {
