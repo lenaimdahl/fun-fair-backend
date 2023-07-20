@@ -188,9 +188,11 @@ router.get("/events", async (req, res) => {
 router.post("/search", async (req, res) => {
   try {
     const { startDate } = req.body;
-    const allEvents = await EventModel.find({ timestamp: { $eq: startDate } });
+    const allMeetings = await MeetingModel.find({
+      timestamp: { $eq: startDate },
+    });
     const allEntries = await TextModel.find({ timestamp: { $eq: startDate } });
-    res.status(200).json({ allEvents, allEntries });
+    res.status(200).json({ allMeetings, allEntries });
   } catch (err) {
     console.error("ERROR while fetching all events from db :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
