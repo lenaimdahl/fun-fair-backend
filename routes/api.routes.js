@@ -188,10 +188,15 @@ router.get("/events", async (req, res) => {
 router.post("/search", async (req, res) => {
   try {
     const { startDate } = req.body;
+    const userId = req.payload._id;
     const allMeetings = await MeetingModel.find({
+      user: userId,
       timestamp: { $eq: startDate },
     });
-    const allEntries = await TextModel.find({ timestamp: { $eq: startDate } });
+    const allEntries = await TextModel.find({
+      user: userId,
+      timestamp: { $eq: startDate },
+    });
     res.status(200).json({ allMeetings, allEntries });
   } catch (err) {
     console.error("ERROR while fetching all events from db :>>", err);
@@ -258,7 +263,9 @@ router.patch("/newGoal", async (req, res) => {
       weeklyGoal: weeklyGoal,
     };
     // console.log("new goal", updateData);
-    const userUpdate = await UserModel.findByIdAndUpdate(userId, updateData, { new: true });
+    const userUpdate = await UserModel.findByIdAndUpdate(userId, updateData, {
+      new: true,
+    });
     res.sendStatus(200);
   } catch (err) {
     console.error("ERROR while adding a text :>>", err);
