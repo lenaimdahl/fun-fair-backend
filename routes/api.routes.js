@@ -250,4 +250,20 @@ router.patch("/text/:entryId", async (req, res) => {
   }
 });
 
+router.patch("/newGoal", async (req, res) => {
+  try {
+    const userId = req.payload._id;
+    const { weeklyGoal } = req.body;
+    const updateData = {
+      weeklyGoal: weeklyGoal,
+    };
+    // console.log("new goal", updateData);
+    const userUpdate = await UserModel.findByIdAndUpdate(userId, updateData, { new: true });
+    res.sendStatus(200);
+  } catch (err) {
+    console.error("ERROR while adding a text :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
