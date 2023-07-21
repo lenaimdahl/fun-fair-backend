@@ -187,8 +187,10 @@ router.get("/events", async (req, res) => {
 
 router.post("/search", async (req, res) => {
   try {
+    const userId = req.payload._id;
     const { startDate } = req.body;
     const allMeetings = await MeetingModel.find({
+      user: userId,
       timestamp: { $eq: startDate },
     });
     const allEntries = await TextModel.find({ timestamp: { $eq: startDate } });
@@ -258,7 +260,9 @@ router.patch("/newGoal", async (req, res) => {
       weeklyGoal: weeklyGoal,
     };
     // console.log("new goal", updateData);
-    const userUpdate = await UserModel.findByIdAndUpdate(userId, updateData, { new: true });
+    const userUpdate = await UserModel.findByIdAndUpdate(userId, updateData, {
+      new: true,
+    });
     res.sendStatus(200);
   } catch (err) {
     console.error("ERROR while adding a text :>>", err);
