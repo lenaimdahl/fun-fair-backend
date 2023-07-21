@@ -11,8 +11,8 @@ const moodSchema = new Schema({
     required: true,
   },
   timestamp: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    required: true,
   },
 });
 
