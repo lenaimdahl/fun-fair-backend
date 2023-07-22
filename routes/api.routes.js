@@ -67,7 +67,13 @@ router.post("/mood", async (req, res) => {
   try {
     const { timestamp, title } = req.body;
     const userId = req.payload._id;
-    const currentDay = new Date(timestamp).setHours(0, 0, 0, 0);
+
+    const timestampDate = new Date(timestamp);
+    const currentDay = new Date(
+      timestampDate.getFullYear(),
+      timestampDate.getMonth(),
+      timestampDate.getDate()
+    );
 
     // Check if a mood already exists for the current day
     const existingMood = await MoodModel.findOne({
@@ -158,6 +164,23 @@ router.post("/meetings", async (req, res) => {
     res.status(200).json({ pushMeetingToUser });
   } catch (err) {
     console.error("ERROR while adding an meeting :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.delete("/meeting/:meetingId", async (req, res) => {
+  try {
+    const userId = req.payload._id;
+    const { meetingId } = req.params;
+    const meeting = await MeetingModel.findById(meetingId);
+    if (userId !== meeting.user.toString()) {
+      res.sendStatus(401);
+      return;
+    }
+    await meeting.deleteOne();
+    res.sendStatus(200);
+  } catch (err) {
+    console.error("ERROR while adding a text :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
