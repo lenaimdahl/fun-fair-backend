@@ -33,7 +33,7 @@ router.post("/meetings", async (req, res) => {
       $push: { meetings: meetingsAddedToCal._id },
     });
 
-    res.status(200).json({ pushMeetingToUser:meetingsAddedToCal });
+    res.status(200).json({ pushMeetingToUser: meetingsAddedToCal });
   } catch (err) {
     console.error("ERROR while adding an meeting :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
@@ -71,7 +71,7 @@ router.post("/search", async (req, res) => {
     });
     res.status(200).json({ allMeetings, allEntries });
   } catch (err) {
-    console.error("ERROR while fetching all events from db :>>", err);
+    console.error("ERROR while fetching all meetings from db :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -104,7 +104,7 @@ router.delete("/text/:entryId", async (req, res) => {
     await entry.deleteOne();
     res.sendStatus(200);
   } catch (err) {
-    console.error("ERROR while adding a text :>>", err);
+    console.error("ERROR while deleting a text :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -122,7 +122,7 @@ router.patch("/text/:entryId", async (req, res) => {
     await entry.updateOne({ text });
     res.sendStatus(200);
   } catch (err) {
-    console.error("ERROR while adding a text :>>", err);
+    console.error("ERROR while updatinga text :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });

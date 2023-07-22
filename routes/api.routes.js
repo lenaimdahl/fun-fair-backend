@@ -22,7 +22,7 @@ router.get("/nonfriends", async (req, res) => {
     });
     res.status(200).json({ users: nonFriends });
   } catch (err) {
-    console.error("ERROR while fetching all user from db :>>", err);
+    console.error("ERROR while fetching nonfriends from db :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -39,7 +39,7 @@ router.get("/friends", async (req, res) => {
 
     res.status(200).json({ friends: friendsData });
   } catch (err) {
-    console.error("ERROR while fetching all user from db :>>", err);
+    console.error("ERROR while fetching friends from db :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -71,7 +71,7 @@ router.patch("/newGoal", async (req, res) => {
     });
     res.sendStatus(200);
   } catch (err) {
-    console.error("ERROR while adding a text :>>", err);
+    console.error("ERROR while adding a new goal :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });

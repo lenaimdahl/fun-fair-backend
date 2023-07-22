@@ -14,7 +14,7 @@ router.post("/activity", async (req, res) => {
     });
     res.status(200).json({ savedActivity });
   } catch (err) {
-    console.error("ERROR while getting selected user data :>>", err);
+    console.error("ERROR while getting activity data :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
