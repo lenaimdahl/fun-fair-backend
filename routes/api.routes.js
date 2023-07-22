@@ -136,15 +136,17 @@ router.get("/meetings-calendar", async (req, res) => {
   }
 });
 
-router.post("/meeting", async (req, res) => {
+router.post("/meetings", async (req, res) => {
   try {
     const userId = req.payload._id;
     const { title, image, points, timestamp, friend } = req.body;
+    const friendId = friend === "" ? null : friend;
+
     const meetingsAddedToCal = await MeetingModel.create({
       user: userId,
       title,
       image,
-      friend,
+      friend: friendId,
       points,
       timestamp,
     });
