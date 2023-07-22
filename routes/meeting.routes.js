@@ -14,26 +14,23 @@ router.get("/meetings-calendar", async (req, res) => {
   }
 });
 
-router.post("/meetings", async (req, res) => {
+router.post("/meeting", async (req, res) => {
   try {
     const userId = req.payload._id;
     const { title, image, points, timestamp, friend } = req.body;
-    const friendId = friend === "" ? null : friend;
 
-    const meetingsAddedToCal = await MeetingModel.create({
+    const newMeeting = await MeetingModel.create({
       user: userId,
       title,
       image,
-      friend: friendId,
+      friend,
       points,
       timestamp,
     });
-
-    const pushMeetingToUser = await UserModel.findByIdAndUpdate(userId, {
-      $push: { meetings: meetingsAddedToCal._id },
+    await UserModel.findByIdAndUpdate(userId, {
+      $push: { meetings: newMeeting._id },
     });
-
-    res.status(200).json({ pushMeetingToUser: meetingsAddedToCal });
+    res.status(200).json({ newMeeting });
   } catch (err) {
     console.error("ERROR while adding an meeting :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
