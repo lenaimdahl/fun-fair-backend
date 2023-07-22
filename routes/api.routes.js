@@ -189,7 +189,6 @@ router.post("/search", async (req, res) => {
   try {
     const userId = req.payload._id;
     const { startDate } = req.body;
-    const userId = req.payload._id;
     const allMeetings = await MeetingModel.find({
       user: userId,
       timestamp: { $eq: startDate },
