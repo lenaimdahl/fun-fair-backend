@@ -136,7 +136,7 @@ router.get("/meetings-calendar", async (req, res) => {
   }
 });
 
-router.post("/event", async (req, res) => {
+router.post("/meeting", async (req, res) => {
   try {
     const userId = req.payload._id;
     const { title, image, points, timestamp, friend } = req.body;
