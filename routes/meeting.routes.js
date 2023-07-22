@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const MeetingModel = require("../models/Meeting.model");
+const UserModel = require("../models/User.model");
 const TextModel = require("../models/Text.model");
 
 router.get("/meetings-calendar", async (req, res) => {
