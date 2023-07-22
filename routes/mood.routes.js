@@ -37,15 +37,27 @@ router.post("/mood", async (req, res) => {
   }
 });
 
+router.get("/mood/:timestamp", async (req, res) => {
+  try {
+    const userId = req.payload._id;
+    const { timestamp } = req.params;
+    const moods = await MoodModel.find({
+      user: userId,
+      timestamp,
+    });
+
+    res.status(200).json({ moods });
+  } catch (err) {
+    console.error("ERROR while getting selected user data :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 router.get("/moods", async (req, res) => {
   try {
     const userId = req.payload._id;
-    const currentDay = new Date().setHours(0, 0, 0, 0);
-    const nextDay = new Date(currentDay + 86400000); // Add 24 hours to currentDay
-
     const moods = await MoodModel.find({
       user: userId,
-      timestamp: { $gte: currentDay, $lt: nextDay },
     });
 
     res.status(200).json({ moods });
