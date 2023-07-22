@@ -33,7 +33,7 @@ router.post("/meetings", async (req, res) => {
       $push: { meetings: meetingsAddedToCal._id },
     });
 
-    res.status(200).json({ pushMeetingToUser });
+    res.status(200).json({ pushMeetingToUser:meetingsAddedToCal });
   } catch (err) {
     console.error("ERROR while adding an meeting :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
