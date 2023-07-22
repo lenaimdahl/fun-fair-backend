@@ -19,6 +19,7 @@ const meetingSchema = new Schema({
   friend: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    default: null,
   },
   timestamp: {
     type: Date,
