@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const ActivityModel = require("../models/Activity.model");
 const UserModel = require("../models/User.model");
 
 router.get("/user", async (req, res) => {
@@ -73,20 +72,6 @@ router.patch("/newGoal", async (req, res) => {
     res.sendStatus(200);
   } catch (err) {
     console.error("ERROR while adding a text :>>", err);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
-
-router.post("/activity", async (req, res) => {
-  try {
-    console.log(req.body);
-    const { title } = req.body;
-    const savedActivity = await ActivityModel.create({
-      title,
-    });
-    res.status(200).json({ savedActivity });
-  } catch (err) {
-    console.error("ERROR while getting selected user data :>>", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
