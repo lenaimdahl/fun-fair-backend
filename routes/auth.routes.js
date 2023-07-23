@@ -34,6 +34,8 @@ router.post("/login", async (req, res) => {
           expiresIn: "6h",
         });
         res.status(200).json({ authToken });
+      } else {
+        res.status(400).json({ message: "email or password do not match" });
       }
     } else {
       res.status(400).json({ message: "email or password do not match" });
@@ -47,6 +49,8 @@ router.get("/verify", isAuthenticated, (req, res) => {
   console.log("here is our payload", req.payload);
   if (req.payload) {
     res.status(200).json({ user: req.payload });
+  } else {
+    res.sendStatus(200);
   }
 });
 
