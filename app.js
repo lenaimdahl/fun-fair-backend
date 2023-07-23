@@ -20,6 +20,9 @@ app.use("/api", isAuthenticated, moodRoutes);
 const eventRoutes = require("./routes/event.routes");
 app.use("/api", isAuthenticated, eventRoutes);
 
+const entryRoutes = require("./routes/entry.routes");
+app.use("/api", isAuthenticated, entryRoutes);
+
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
