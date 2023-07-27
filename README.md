@@ -78,7 +78,7 @@ This project is licensed under the MIT License.
 
 ## Author
 
-This game was created by [Lena Imdahl](https://github.com/lenaimdahl) and [Olga ](https://github.com/). If you have any questions or feedback, please feel free to [open an issue](https://github.com/lenaimdahl/Nasa-Library/issues/new). 🙂
+This app was created by [Lena Imdahl](https://github.com/lenaimdahl) and [Olga Martyniuk](https://github.com/olga321go). If you have any questions or feedback, please feel free to [open an issue](https://github.com/lenaimdahl/Nasa-Library/issues/new). 🙂
 Thank you for using Galaxia! We hope you enjoy exploring the wonders of space.
 
 ```
