@@ -24,9 +24,9 @@ FunFair Backend is the server-side application that powers the FunFair Calendar 
 
 2. Install dependencies:
 
-```bash
- npm install
-```
+   ```bash
+   npm install
+   ```
 
 3. Set up the MongoDB database:
 
