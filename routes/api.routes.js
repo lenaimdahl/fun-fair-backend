@@ -58,6 +58,26 @@ router.post("/addFriend", async (req, res) => {
   }
 });
 
+router.delete("/friend/:friendsId", async (req, res) => {
+  try {
+    const userId = req.payload._id;
+    const { friendsId } = req.params;
+    const user = await UserModel.findById(userId);
+    if (!user.friends.includes(friendsId)) {
+      return res.status(404).json({ message: "User not found." });
+    }
+    const newFriends = user.friends.filter(
+      (friend) => friend.toString() !== friendsId
+    );
+    user.friends = newFriends;
+    await user.save();
+    res.sendStatus(200);
+  } catch (err) {
+    console.error("ERROR while deleting the entry :>>", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 router.patch("/newGoal", async (req, res) => {
   try {
     const userId = req.payload._id;
