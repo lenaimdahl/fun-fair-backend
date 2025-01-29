@@ -2,7 +2,7 @@
 
 ## Go to [FunFair app](https://funfair.netlify.app/)
 
-## Go to [FunFair Frontend](https://github.com/lenaimdahl/funfair-frontend)
+## Go to [FunFair Frontend](https://github.com/lenaimdahl/fun-fair-frontend)
 
 ## Introduction
 
